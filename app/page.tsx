@@ -30,8 +30,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
-      <header className="bg-white border-b z-10 dark:bg-gray-900 dark:border-gray-800">
+  <div className="min-h-screen flex flex-col bg-white dark:bg-black">
+    <header className="bg-white border-b z-10 dark:bg-black dark:border-gray-800">
         <div className="container mx-auto flex flex-col items-center justify-center py-16 px-4 md:px-6">
           <div className="flex items-center gap-4">
             <BotIcon className="w-12 h-12" />
@@ -43,7 +43,7 @@ export default function Home() {
         </div>
         <nav className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
           <div className="flex items-center gap-2">
-            <div className="rounded-full bg-gray-200 text-gray-800 px-3 py-1 text-sm font-semibold dark:bg-gray-700 dark:text-gray-100">
+            <div className="rounded-full bg-gray-200 text-gray-800 px-3 py-1 text-sm font-semibold dark:bg-gray-800 dark:text-white">
               Count · 52
             </div>
           </div>
