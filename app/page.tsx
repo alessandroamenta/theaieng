@@ -21,22 +21,14 @@ import Link from "next/link";
 import { ArrowRightIcon, BotIcon, HeatmapChart, LocateIcon, MoonIcon, SunIcon } from "@/components/icons";
 import JobCard from "@/components/jobcard";
 import { useTheme } from "next-themes";
+import Spline from "@splinetool/react-spline"
 
 export default function Home() {
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   return (
   <div className="min-h-screen flex flex-col bg-white dark:bg-black">
     <header className="bg-white border-b z-10 dark:bg-black dark:border-gray-800">
-        <div className="container mx-auto flex flex-col items-center justify-center py-16 px-4 md:px-6">
-          <div className="flex items-center gap-4">
-            <BotIcon className="w-12 h-12" />
-            <span className="text-4xl font-bold">AIJobs</span>
-          </div>
+        <div className="container mx-auto flex flex-col items-center justify-center px-4 md:px-6">
           <div className="mt-8">
             <HeatmapChart className="w-full max-w-3xl aspect-video" />
           </div>
@@ -48,19 +40,18 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Button size="icon" variant="ghost" onClick={toggleTheme}>
-              {theme === "dark" ? (
-                <SunIcon className="w-5 h-5" />
-              ) : (
-                <MoonIcon className="w-5 h-5" />
-              )}
-              <span className="sr-only">Toggle theme</span>
-            </Button>
             <Button>Submit · $175</Button>
           </div>
         </nav>
       </header>
-      <main className="flex-1 container mx-auto px-4 md:px-6 py-8">
+      <div style={{ position: 'relative' }}>
+  <div style={{ height: 700 }}>
+    <Spline scene="https://prod.spline.design/V5gKuXces8ZEl5-T/scene.splinecode" />
+  </div>
+  <main
+    className="flex-1 container mx-auto px-4 md:px-6"
+    style={{ position: 'absolute', top: '400px', left: 0, right: 0, zIndex: 1 }}
+  >
         <div className="flex flex-col items-center">
           <div className="flex justify-between items-center mb-6 w-full max-w-3xl">
             <h2 className="text-2xl font-semibold">Latest AI Jobs</h2>
@@ -127,5 +118,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+  </div>
   );
 }
