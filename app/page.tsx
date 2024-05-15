@@ -11,16 +11,6 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-interface Job {
-  id: number;
-  company_logo: string;
-  title: string;
-  company_name: string;
-  job_type: string;
-  description: string;
-  location: string;
-}
-
 export default function Home() {
   
   const [jobs, setJobs] = useState<any[]>([]);
@@ -33,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     // Fetch job data from an API or database
     const fetchJobs = async () => {
-      const response = await fetch('/api/jobs');
+      const response = await fetch('/api/get-jobs');
       const data = await response.json();
       setJobs(data);
     };
@@ -77,12 +67,12 @@ export default function Home() {
               {jobs.slice(0, showCount).map((job) => (
                 <JobCard
                   key={job.id}
-                  companyLogo={job.company_logo}
-                  jobTitle={job.title}
-                  companyName={job.company_name}
-                  jobType={job.job_type}
-                  jobDescription={job.description}
+                  job_link={job.job_link}
+                  job_title={job.job_title}
+                  company_name={job.company_name}
+                  company_logo={job.company_logo}
                   location={job.location}
+                  date_posted={job.date_posted}
                 />
               ))}
               {jobs.length > showCount && (
