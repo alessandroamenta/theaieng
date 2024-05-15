@@ -2,13 +2,13 @@ import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
 
 interface JobCardProps {
-  companyLogo: string;
-  jobTitle: string;
-  companyName: string;
-  jobType: string;
-  jobDescription: string;
-  location: string;
-}
+    companyLogo: string;
+    jobTitle: string;
+    companyName: string;
+    jobType: string;
+    jobDescription: string;
+    location: string;
+  }  
 
 export default function JobCard({
   companyLogo,

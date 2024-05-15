@@ -8,8 +8,38 @@ import JobCard from "@/components/jobcard";
 import { useTheme } from "next-themes";
 import Spline from "@splinetool/react-spline"
 import { Input } from "@/components/ui/input";
+import { useEffect, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+interface Job {
+  id: number;
+  company_logo: string;
+  title: string;
+  company_name: string;
+  job_type: string;
+  description: string;
+  location: string;
+}
 
 export default function Home() {
+  
+  const [jobs, setJobs] = useState<any[]>([]);
+  const [showCount, setShowCount] = useState(20);
+
+  const handleShowMore = () => {
+    setShowCount(showCount + 20);
+  };
+  
+  useEffect(() => {
+    // Fetch job data from an API or database
+    const fetchJobs = async () => {
+      const response = await fetch('/api/jobs');
+      const data = await response.json();
+      setJobs(data);
+    };
+    fetchJobs();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-32">
       <div className="w-9/12 mx-auto border border-gray-500 border-1 rounded">
@@ -44,16 +74,23 @@ export default function Home() {
                 </div>         
               </div>
               <div className="grid gap-6 w-full max-w-3xl">
+              {jobs.slice(0, showCount).map((job) => (
                 <JobCard
-                  companyLogo="/placeholder.svg"
-                  jobTitle="Senior Machine Learning Engineer"
-                  companyName="Acme AI Inc."
-                  jobType="Full-time"
-                  jobDescription="We are seeking a talented Senior Machine Learning Engineer to join our team. You will be responsible for developing and deploying cutting-edge machine learning models..."
-                  location="San Francisco, CA"
+                  key={job.id}
+                  companyLogo={job.company_logo}
+                  jobTitle={job.title}
+                  companyName={job.company_name}
+                  jobType={job.job_type}
+                  jobDescription={job.description}
+                  location={job.location}
                 />
-                {/* Add more job cards */}
-              </div>
+              ))}
+              {jobs.length > showCount && (
+                <Button variant="outline" onClick={handleShowMore}>
+                  Show More
+                </Button>
+              )}
+            </div>
             </div>
           </main>
         </div>
@@ -66,25 +103,9 @@ export default function Home() {
               <li>
                 <Link
                   className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                  href="#"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                  href="#"
+                  href="/privacy"
                 >
                   Privacy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                  href="#"
-                >
-                  Terms
                 </Link>
               </li>
             </ul>

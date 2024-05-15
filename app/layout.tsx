@@ -15,6 +15,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <style>
+          {`
+            body {
+              background-color: black;
+            }
+          `}
+        </style>
+      </head>
       <body className={dm_sans.variable}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
