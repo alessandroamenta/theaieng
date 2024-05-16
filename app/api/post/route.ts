@@ -14,6 +14,7 @@ export async function POST(req: Request) {
     const location = formData.get("location") as string;
     const job_title = formData.get("job_title") as string;
     const company_logo = formData.get("company_logo") as File | null;
+    const salary_range = formData.get("salary_range") as string;
 
     console.log("Received job data:", { job_link, company_name, location, job_title, company_logo });
 
@@ -34,7 +35,7 @@ export async function POST(req: Request) {
     const company_logo_url = supabase.storage.from("company-logos").getPublicUrl(uploadData.path).data.publicUrl;
 
     const { data, error } = await supabase.from("job_postings").insert([
-      { job_link, company_logo: company_logo_url, company_name, location, job_title, date_posted: new Date() },
+      { job_link, company_logo: company_logo_url, company_name, location, job_title, salary_range, date_posted: new Date() },
     ]);
 
     if (error) {

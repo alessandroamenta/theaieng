@@ -21,11 +21,13 @@ export default function Home() {
   };
   
   useEffect(() => {
-    // Fetch job data from an API or database
     const fetchJobs = async () => {
       const response = await fetch('/api/get-jobs');
       const data = await response.json();
-      setJobs(data);
+      console.log("Fetched jobs:", data);
+      // Sort jobs by date_posted in descending order
+      const sortedJobs = data.sort((a: any, b: any) => new Date(b.date_posted).getTime() - new Date(a.date_posted).getTime());
+      setJobs(sortedJobs);
     };
     fetchJobs();
   }, []);
@@ -51,10 +53,10 @@ export default function Home() {
           </div>
           <main
             className="flex-1 container mx-auto px-4 md:px-6"
-            style={{ position: 'absolute', top: '350px', left: 0, right: 0, zIndex: 1 }}
+            style={{ position: 'absolute', top: '400px', left: 0, right: 0, zIndex: 1 }}
           >
             <div className="flex flex-col items-center">
-              <div className="flex justify-between items-center mb-6 w-full max-w-3xl">
+              <div className="flex justify-between items-center mb-6 w-full max-w-2xl">
                 <div className="flex items-center gap-4">
                   <Button variant="outline">Count · 56</Button>
                 </div>  
@@ -63,7 +65,7 @@ export default function Home() {
                   <Button variant="outline">Subscribe</Button>
                 </div>         
               </div>
-              <div className="grid gap-6 w-full max-w-3xl">
+              <div className="grid gap-6 w-full max-w-2xl">
               {jobs.slice(0, showCount).map((job) => (
                 <JobCard
                   key={job.id}

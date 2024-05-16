@@ -67,10 +67,15 @@ export default function PostJobForm() {
               <Label htmlFor="job-link">Job Description Link</Label>
               <Input id="job-link" name="job_link" placeholder="Enter job description link" type="url" required />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="salary-range">Salary Range (optional)</Label>
+              <Input id="salary-range" name="salary_range" placeholder="Enter salary range" />
+            </div>
           </CardContent>
           <CardFooter className="flex justify-end">
             <Button type="submit">Post Job</Button>
-          </CardFooter>        </form>
+          </CardFooter>        
+        </form>
       </Card>
     </div>
   );
