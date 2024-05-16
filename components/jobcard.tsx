@@ -32,7 +32,7 @@ export default function JobCard({
   return (
     <div className="relative group">
       <Link href={job_link} target="_blank" rel="noopener noreferrer">
-        <div className="flex items-center justify-between p-4 bg-[#080808] border border-[#171717] rounded border-greyrounded-md hover:bg-[#121212] transition-colors duration-200">
+        <div className="flex items-center justify-between p-4 bg-[#080808] border border-[#181818] rounded border-greyrounded-md hover:bg-[#121212] transition-colors duration-200">
           <div className="flex items-center space-x-4">
             <Image src={company_logo} alt={company_name} width={50} height={50} className="rounded-md" />
             <div>
@@ -43,9 +43,9 @@ export default function JobCard({
           <div className="flex flex-col items-end space-y-1 transition-transform duration-300 group-hover:-translate-x-14">
             <div className="text-gray-400 text-sm whitespace-nowrap">{getDaysAgo(date_posted)}</div>
             <div className="text-gray-400 text-sm flex space-x-2">
-              <span className="text-xs md:text-sm max-w-20 md:max-w-full text-nowrap truncate bg-[#080808] border border-[#171717] px-2 pt-[3px] pb-[2px] md:py-[2px] leading-none rounded-[8px] md:rounded-[10px]">{location}</span>
+              <span className="text-xs md:text-sm max-w-20 md:max-w-full text-nowrap truncate bg-[#080808] border border-[#181818] px-2 pt-[3px] pb-[2px] md:py-[2px] leading-none rounded-[8px] md:rounded-[10px]">{location}</span>
               {salary_range && <span>•</span>}
-              {salary_range && <span className="text-xs md:text-sm max-w-20 md:max-w-full text-nowrap truncate bg-[#080808] border border-[#171717]px-2 pt-[3px] pb-[2px] md:py-[2px] leading-none rounded-[8px] md:rounded-[10px]">{salary_range}</span>}
+              {salary_range && <span className="text-xs md:text-sm max-w-20 md:max-w-full text-nowrap truncate bg-[#080808] border border-[#181818]px-2 pt-[3px] pb-[2px] md:py-[2px] leading-none rounded-[8px] md:rounded-[10px]">{salary_range}</span>}
             </div>
           </div>
         </div>
