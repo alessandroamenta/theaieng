@@ -40,14 +40,15 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-32">
       <div className="w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md">
-        <header className="bg-white border-b z-10 dark:bg-black dark:border-gray-800">
+        <header className="bg-white z-10 dark:bg-black dark:border-gray-800">
           <div className="container mx-auto flex flex-col items-center justify-center px-4 md:px-6">
             <div className="mt-8">
               <HeatmapChart className="w-full max-w-3xl aspect-video" />
             </div>
           </div>
           <nav className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
-            <div className="flex items-center gap-4 bg-[#090909] border border-[#181818] rounded-md">
+            <div className="flex-1"></div>
+            <div className="flex items-center gap-4 bg-[#090909] border border-[#181818] rounded-md mr-12">
               <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]" >Submit · $175</Button>
             </div>
           </nav>
@@ -64,33 +65,60 @@ export default function Home() {
               <div className="flex justify-between items-center mb-6 w-full max-w-2xl">
                 <div className="flex items-center gap-4 rounded-md">
                   <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]">Count · 56</Button>
-                </div>  
-                <div className="flex w-full max-w-sm items-center space-x-2">
-                  <Input placeholder="Get the hottest jobs in your inbox" type="email" />
-                  <Button variant="outline">Subscribe</Button>
-                </div>         
+                </div>        
               </div>
               <div className="grid gap-2 w-full max-w-2xl">
-              {jobs.slice(0, showCount).map((job) => (
-                <JobCard
-                  key={job.id}
-                  job_link={job.job_link}
-                  job_title={job.job_title}
-                  company_name={job.company_name}
-                  company_logo={job.company_logo}
-                  location={job.location}
-                  date_posted={job.date_posted}
-                  salary_range={job.salary_range}
-                />
-              ))}
-              {jobs.length > showCount && (
-                <Button variant="outline" onClick={handleShowMore}>
-                  Show More
-                </Button>
-              )}
-            </div>
+                {jobs.slice(0, showCount).map((job) => (
+                  <JobCard
+                    key={job.id}
+                    job_link={job.job_link}
+                    job_title={job.job_title}
+                    company_name={job.company_name}
+                    company_logo={job.company_logo}
+                    location={job.location}
+                    date_posted={job.date_posted}
+                    salary_range={job.salary_range}
+                  />
+                ))}
+                {jobs.length > showCount && (
+                  <Button variant="outline" onClick={handleShowMore}>
+                    Show More
+                  </Button>
+                )}
+              </div>
             </div>
           </main>
+          <div
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 2,
+              width: '100%',
+              maxWidth: '600px',
+              padding: '0 20px',
+            }}
+          >
+            <div className="relative">
+              <Input
+                placeholder="Add your email and get the hottest AI eng jobs..."
+                type="email"
+                className="bg-transparent border border-gray-300 w-full h-14 px-6 py-2 text-sm md:text-base rounded-md focus:outline-none focus:border-gray-400 placeholder:text-gray-500"
+                style={{
+                  backgroundColor: 'var(--gray-trans)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  backdropFilter: 'blur(10px)',
+                }}
+              />
+              <Button
+                variant="outline"
+                className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 md:px-5 h-9 text-sm md:text-base border shadow-md"
+              >
+                Subscribe
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
       <footer className="bg-black-100 dark:bg-black-900 pt-20 pb-8">
