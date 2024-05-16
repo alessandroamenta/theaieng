@@ -68,7 +68,7 @@ export default function PostJobForm() {
               <Input id="job-link" name="job_link" placeholder="Enter job description link" type="url" required />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="salary-range">Salary Range (optional)</Label>
+              <Label htmlFor="salary-range">Salary Range (optional) - eg: $158-228k or $100k </Label>
               <Input id="salary-range" name="salary_range" placeholder="Enter salary range" />
             </div>
           </CardContent>

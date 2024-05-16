@@ -25,8 +25,16 @@ export default function Home() {
       const response = await fetch('/api/get-jobs');
       const data = await response.json();
       console.log("Fetched jobs:", data);
+      
       // Sort jobs by date_posted in descending order
-      const sortedJobs = data.sort((a: any, b: any) => new Date(b.date_posted).getTime() - new Date(a.date_posted).getTime());
+      const sortedJobs = data.sort((a: any, b: any) => {
+        const dateA = new Date(a.date_posted);
+        const dateB = new Date(b.date_posted);
+        console.log("Date comparison:", dateA, dateB);
+        return dateB.getTime() - dateA.getTime();
+      });
+      
+      console.log("Sorted jobs:", sortedJobs);
       setJobs(sortedJobs);
     };
     fetchJobs();
@@ -75,6 +83,7 @@ export default function Home() {
                   company_logo={job.company_logo}
                   location={job.location}
                   date_posted={job.date_posted}
+                  salary_range={job.salary_range}
                 />
               ))}
               {jobs.length > showCount && (

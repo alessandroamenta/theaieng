@@ -14,7 +14,9 @@ export async function GET(req: Request) {
       console.error("Error fetching jobs:", error);
       return NextResponse.json({ error: "Failed to fetch jobs" }, { status: 500 });
     }
-
+    
+    console.log("Fetched jobs from Supabase:", data);
+    
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Error fetching jobs:", error);

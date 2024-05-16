@@ -21,11 +21,17 @@ export default function JobCard({
   date_posted,
   salary_range,
 }: JobCardProps) {
-  const getDaysAgo = (dateValue: string | Date) => {
+
+  const getDaysAgo = (dateValue: string) => {
     const today = new Date();
-    const postedDate = typeof dateValue === "string" ? new Date(dateValue) : dateValue;
+    const [year, month, day] = dateValue.split("-");
+    const postedDate = new Date(Number(year), Number(month) - 1, Number(day));
+  
+    console.log("Today:", today);
+    console.log("Posted date:", postedDate);
     const diffTime = Math.abs(today.getTime() - postedDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    console.log("Difference in days:", diffDays);
     return diffDays === 0 ? "Today" : diffDays === 1 ? "1 day ago" : `${diffDays} days ago`;
   };
 

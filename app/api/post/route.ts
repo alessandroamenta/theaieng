@@ -34,9 +34,17 @@ export async function POST(req: Request) {
 
     const company_logo_url = supabase.storage.from("company-logos").getPublicUrl(uploadData.path).data.publicUrl;
 
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    
     const { data, error } = await supabase.from("job_postings").insert([
-      { job_link, company_logo: company_logo_url, company_name, location, job_title, salary_range, date_posted: new Date() },
+      { job_link, company_logo: company_logo_url, company_name, location, job_title, salary_range, date_posted: formattedDate },
     ]);
+    
+    console.log("Inserted job data:", data);
 
     if (error) {
       console.error("Error posting job:", error);
