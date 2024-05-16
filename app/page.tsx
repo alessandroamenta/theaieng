@@ -1,15 +1,12 @@
 "use client"
 
-import { ResponsiveHeatMap } from "@nivo/heatmap";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRightIcon, BotIcon, HeatmapChart, LocateIcon, MoonIcon, SunIcon } from "@/components/icons";
 import JobCard from "@/components/jobcard";
-import { useTheme } from "next-themes";
 import Spline from "@splinetool/react-spline"
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
 
 export default function Home() {
   
@@ -42,7 +39,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-32">
-      <div className="w-9/12 mx-auto border border-gray-500 border-1 rounded">
+      <div className="w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md">
         <header className="bg-white border-b z-10 dark:bg-black dark:border-gray-800">
           <div className="container mx-auto flex flex-col items-center justify-center px-4 md:px-6">
             <div className="mt-8">
@@ -50,14 +47,14 @@ export default function Home() {
             </div>
           </div>
           <nav className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
-            <div className="flex items-center gap-4">
-              <Button variant="outline" >Submit · $175</Button>
+            <div className="flex items-center gap-4 bg-[#090909] border border-[#181818] rounded-md">
+              <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]" >Submit · $175</Button>
             </div>
           </nav>
         </header>
         <div style={{ position: 'relative' }}>
-          <div style={{ height: 700 }}>
-            <Spline scene="https://prod.spline.design/V5gKuXces8ZEl5-T/scene.splinecode" />
+          <div style={{ height: 650 }}>
+            <Spline scene="https://prod.spline.design/P63ncCY2mpMOKsJf/scene.splinecode" />
           </div>
           <main
             className="flex-1 container mx-auto px-4 md:px-6"
@@ -65,15 +62,15 @@ export default function Home() {
           >
             <div className="flex flex-col items-center">
               <div className="flex justify-between items-center mb-6 w-full max-w-2xl">
-                <div className="flex items-center gap-4">
-                  <Button variant="outline">Count · 56</Button>
+                <div className="flex items-center gap-4 rounded-md">
+                  <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]">Count · 56</Button>
                 </div>  
                 <div className="flex w-full max-w-sm items-center space-x-2">
                   <Input placeholder="Get the hottest jobs in your inbox" type="email" />
                   <Button variant="outline">Subscribe</Button>
                 </div>         
               </div>
-              <div className="grid gap-6 w-full max-w-2xl">
+              <div className="grid gap-2 w-full max-w-2xl">
               {jobs.slice(0, showCount).map((job) => (
                 <JobCard
                   key={job.id}

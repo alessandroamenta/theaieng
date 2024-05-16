@@ -1,5 +1,16 @@
 import { ResponsiveHeatMap } from "@nivo/heatmap";
 
+
+export function CommitIcon(props: any) {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+      <path 
+        fill="currentColor"
+        d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z" />
+    </svg>
+  );
+}
+
 export function ArrowRightIcon(props: any) {
         return (
             <svg
