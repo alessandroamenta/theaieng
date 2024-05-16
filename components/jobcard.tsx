@@ -21,9 +21,9 @@ export default function JobCard({
   date_posted,
   salary_range,
 }: JobCardProps) {
-  const getDaysAgo = (dateString: string) => {
+  const getDaysAgo = (dateValue: string | Date) => {
     const today = new Date();
-    const postedDate = new Date(dateString);
+    const postedDate = typeof dateValue === "string" ? new Date(dateValue) : dateValue;
     const diffTime = Math.abs(today.getTime() - postedDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays === 0 ? "Today" : diffDays === 1 ? "1 day ago" : `${diffDays} days ago`;
@@ -32,7 +32,7 @@ export default function JobCard({
   return (
     <div className="relative group">
       <Link href={job_link} target="_blank" rel="noopener noreferrer">
-        <div className="flex items-center justify-between p-4 bg-[#0f0e0e] rounded-md hover:bg-[#1a1a1a] transition-colors duration-200">
+        <div className="flex items-center justify-between p-4 bg-[#080808] border border-[#171717] rounded border-greyrounded-md hover:bg-[#121212] transition-colors duration-200">
           <div className="flex items-center space-x-4">
             <Image src={company_logo} alt={company_name} width={50} height={50} className="rounded-md" />
             <div>
@@ -43,9 +43,9 @@ export default function JobCard({
           <div className="flex flex-col items-end space-y-1 transition-transform duration-300 group-hover:-translate-x-14">
             <div className="text-gray-400 text-sm whitespace-nowrap">{getDaysAgo(date_posted)}</div>
             <div className="text-gray-400 text-sm flex space-x-2">
-              <span className="text-xs md:text-sm max-w-20 md:max-w-full text-nowrap truncate bg-gray-98 border border-l-gray-700 px-2 pt-[3px] pb-[2px] md:py-[2px] leading-none rounded-[8px] md:rounded-[10px]">{location}</span>
+              <span className="text-xs md:text-sm max-w-20 md:max-w-full text-nowrap truncate bg-[#080808] border border-[#171717] px-2 pt-[3px] pb-[2px] md:py-[2px] leading-none rounded-[8px] md:rounded-[10px]">{location}</span>
               {salary_range && <span>•</span>}
-              {salary_range && <span className="text-xs md:text-sm max-w-20 md:max-w-full text-nowrap truncate bg-gray-98 border border-l-gray-700 px-2 pt-[3px] pb-[2px] md:py-[2px] leading-none rounded-[8px] md:rounded-[10px]">{salary_range}</span>}
+              {salary_range && <span className="text-xs md:text-sm max-w-20 md:max-w-full text-nowrap truncate bg-[#080808] border border-[#171717]px-2 pt-[3px] pb-[2px] md:py-[2px] leading-none rounded-[8px] md:rounded-[10px]">{salary_range}</span>}
             </div>
           </div>
         </div>
