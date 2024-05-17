@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-12">
-      <div className={`w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md pt-10 pb-[-40] ${isModalOpen ? 'blur-sm' : ''}`}>
+      <div className={`w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md pt-10 pb-[-40] ${isModalOpen ? 'blur-md' : ''}`}>
         <header className="bg-white z-10 dark:bg-black dark:border-gray-800">
           <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
             <div className="flex-1"></div>
