@@ -1,28 +1,27 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRightIcon, BotIcon, HeatmapChart, LocateIcon, MoonIcon, SunIcon } from "@/components/icons";
 import JobCard from "@/components/jobcard";
-import Spline from "@splinetool/react-spline"
+import Spline from "@splinetool/react-spline";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-  
   const [jobs, setJobs] = useState<any[]>([]);
   const [showCount, setShowCount] = useState(20);
 
   const handleShowMore = () => {
     setShowCount(showCount + 20);
   };
-  
+
   useEffect(() => {
     const fetchJobs = async () => {
       const response = await fetch('/api/get-jobs');
       const data = await response.json();
       console.log("Fetched jobs:", data);
-      
+
       // Sort jobs by date_posted in descending order
       const sortedJobs = data.sort((a: any, b: any) => {
         const dateA = new Date(a.date_posted);
@@ -30,7 +29,7 @@ export default function Home() {
         console.log("Date comparison:", dateA, dateB);
         return dateB.getTime() - dateA.getTime();
       });
-      
+
       console.log("Sorted jobs:", sortedJobs);
       setJobs(sortedJobs);
     };
@@ -38,34 +37,32 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-32">
-      <div className="w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-12">
+      <div className="w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md pt-10 pb-[-40]">
         <header className="bg-white z-10 dark:bg-black dark:border-gray-800">
-          <div className="container mx-auto flex flex-col items-center justify-center px-4 md:px-6">
-            <div className="mt-8">
-              <HeatmapChart className="w-full max-w-3xl aspect-video" />
+          <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
+            <div className="flex-1"></div>
+            <div className="relative">
+              <Button
+                variant="outline"
+                className="rounded-md bg-[#090909] border border-[#181818]"
+                style={{ position: 'absolute', top: '24px', right: '24px', transform: 'translateY(-50%)', zIndex: 10 }}
+              >
+                Submit · $175
+              </Button>
             </div>
           </div>
-          <nav className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
-            <div className="flex-1"></div>
-            <div className="flex items-center gap-4 bg-[#090909] border border-[#181818] rounded-md mr-12">
-              <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]" >Submit · $175</Button>
-            </div>
-          </nav>
         </header>
-        <div style={{ position: 'relative' }}>
-          <div style={{ height: 650 }}>
+        <div style={{ position: 'relative' }} className="mb-[-190px]">
+          <div style={{ height: 600 }}>
             <Spline scene="https://prod.spline.design/P63ncCY2mpMOKsJf/scene.splinecode" />
           </div>
-          <main
-            className="flex-1 container mx-auto px-4 md:px-6"
-            style={{ position: 'absolute', top: '400px', left: 0, right: 0, zIndex: 1 }}
-          >
+          <main className="flex-1 container mx-auto px-4 md:px-6 relative top-[-230px]">
             <div className="flex flex-col items-center">
               <div className="flex justify-between items-center mb-6 w-full max-w-2xl">
                 <div className="flex items-center gap-4 rounded-md">
                   <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]">Count · 56</Button>
-                </div>        
+                </div>
               </div>
               <div className="grid gap-2 w-full max-w-2xl">
                 {jobs.slice(0, showCount).map((job) => (
