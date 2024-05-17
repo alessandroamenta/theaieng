@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRightIcon, BotIcon, HeatmapChart, LocateIcon, MoonIcon, SunIcon } from "@/components/icons";
+import { ArrowRightIcon, BotIcon, LocateIcon, MoonIcon, SunIcon } from "@/components/icons";
 import JobCard from "@/components/jobcard";
 import Spline from "@splinetool/react-spline";
 import { Input } from "@/components/ui/input";
@@ -53,7 +53,7 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <div style={{ position: 'relative' }} className="mb-[-190px]">
+        <div style={{ position: 'relative' }} >
           <div style={{ height: 600 }}>
             <Spline scene="https://prod.spline.design/P63ncCY2mpMOKsJf/scene.splinecode" />
           </div>
@@ -64,7 +64,7 @@ export default function Home() {
                   <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]">Count · 56</Button>
                 </div>
               </div>
-              <div className="grid gap-2 w-full max-w-2xl">
+              <div className="grid gap-2 w-full max-w-2xl mb-[-190px]">
                 {jobs.slice(0, showCount).map((job) => (
                   <JobCard
                     key={job.id}
@@ -101,7 +101,7 @@ export default function Home() {
               <Input
                 placeholder="Add your email and get the hottest AI eng jobs..."
                 type="email"
-                className="bg-transparent border border-gray-300 w-full h-14 px-6 py-2 text-sm md:text-base rounded-md focus:outline-none focus:border-gray-400 placeholder:text-gray-500"
+                className="bg-transparent border border-[#2f2f2f] w-full h-14 px-6 py-2 text-sm md:text-base rounded-md focus:outline-none focus:border-gray-400 placeholder:text-[#595959]"
                 style={{
                   backgroundColor: 'var(--gray-trans)',
                   WebkitBackdropFilter: 'blur(10px)',
@@ -110,7 +110,7 @@ export default function Home() {
               />
               <Button
                 variant="outline"
-                className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 md:px-5 h-9 text-sm md:text-base border shadow-md"
+                className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 md:px-5 h-8 bg-[#090909] border border-[#181818] shadow-md"
               >
                 Subscribe
               </Button>
