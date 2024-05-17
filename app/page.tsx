@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRightIcon, BotIcon, LocateIcon, MoonIcon, SunIcon } from "@/components/icons";
 import JobCard from "@/components/jobcard";
+import SubmitModal from "@/components/submitmodal";
 import Spline from "@splinetool/react-spline";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from 'react';
@@ -11,6 +12,15 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   const [jobs, setJobs] = useState<any[]>([]);
   const [showCount, setShowCount] = useState(20);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleShowMore = () => {
     setShowCount(showCount + 20);
@@ -38,7 +48,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-12">
-      <div className="w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md pt-10 pb-[-40]">
+      <div className={`w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md pt-10 pb-[-40] ${isModalOpen ? 'blur-sm' : ''}`}>
         <header className="bg-white z-10 dark:bg-black dark:border-gray-800">
           <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
             <div className="flex-1"></div>
@@ -47,6 +57,7 @@ export default function Home() {
                 variant="outline"
                 className="rounded-md bg-[#090909] border border-[#181818]"
                 style={{ position: 'absolute', top: '24px', right: '24px', transform: 'translateY(-50%)', zIndex: 10 }}
+                onClick={openModal}
               >
                 Submit · $175
               </Button>
@@ -135,6 +146,7 @@ export default function Home() {
           </nav>
         </div>
       </footer>
+      {isModalOpen && <SubmitModal onClose={closeModal} />}
     </div>
   );
 }
