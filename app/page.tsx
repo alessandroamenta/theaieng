@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [jobs, setJobs] = useState<any[]>([]);
+  const [jobCount, setJobCount] = useState(0);
   const [showCount, setShowCount] = useState(20);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,13 +24,13 @@ export default function Home() {
   };
 
   const handleShowMore = () => {
-    setShowCount(showCount + 20);
+    setShowCount(showCount === jobs.length ? 20 : jobs.length);
   };
 
   useEffect(() => {
     const fetchJobs = async () => {
       const response = await fetch('/api/get-jobs');
-      const data = await response.json();
+      const { data, count } = await response.json();
       console.log("Fetched jobs:", data);
 
       // Sort jobs by date_posted in descending order
@@ -42,6 +43,7 @@ export default function Home() {
 
       console.log("Sorted jobs:", sortedJobs);
       setJobs(sortedJobs);
+      setJobCount(count);
     };
     fetchJobs();
   }, []);
@@ -72,7 +74,7 @@ export default function Home() {
             <div className="flex flex-col items-center">
               <div className="flex justify-between items-center mb-6 w-full max-w-2xl">
                 <div className="flex items-center gap-4 rounded-md">
-                  <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]">Count · 56</Button>
+                  <Button variant="outline" className="rounded-md bg-[#090909] border border-[#181818]"> Count · {jobCount}</Button>
                 </div>
               </div>
               <div className="grid gap-2 w-full max-w-2xl mb-[-190px]">
@@ -88,10 +90,17 @@ export default function Home() {
                     salary_range={job.salary_range}
                   />
                 ))}
-                {jobs.length > showCount && (
-                  <Button variant="outline" onClick={handleShowMore}>
-                    Show More
-                  </Button>
+                {jobs.length > 20 && (
+                  <div className="flex justify-center">
+                    <Button
+                      variant="outline"
+                      onClick={handleShowMore}
+                      className="rounded-md bg-[#090909] border border-[#181818]"
+                      style={{ width: '16%' }}
+                    >
+                      {showCount === jobs.length ? 'Show Less' : 'Show More'}
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>
