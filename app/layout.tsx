@@ -1,11 +1,11 @@
-import { DM_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
-const dm_sans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-dm_sans",
+  variable: "--font-inter",
 });
 
 export default function RootLayout({
@@ -14,17 +14,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
         <style>
           {`
             body {
               background-color: black;
+              font-family: var(--font-inter);
             }
           `}
         </style>
       </head>
-      <body className={dm_sans.variable}>
+      <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
