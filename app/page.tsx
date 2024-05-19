@@ -67,7 +67,7 @@ export default function Home() {
           </div>
         </header>
         <div style={{ position: 'relative' }}>
-          <div className="text-overlay" style={{ top: '12%', left: '40%', textAlign: 'left' }}>
+          <div className="text-overlay" style={{ top: '11%', left: '40%', textAlign: 'left' }}>
             <h1 style={{ fontSize: '46px', fontFamily: 'monospace', lineHeight: '1.2' }}>
               AI<br />Engineer
             </h1>

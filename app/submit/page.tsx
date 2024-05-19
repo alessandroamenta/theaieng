@@ -8,8 +8,21 @@ import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card }
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useState } from 'react';
 
 export default function PostJobForm() {
+  const [password, setPassword] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === process.env.NEXT_PUBLIC_SUBMIT_PASSWORD) {
+      setIsAuthenticated(true);
+    } else {
+      alert("Invalid password. Access denied.");
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -38,6 +51,37 @@ export default function PostJobForm() {
       // Handle error (e.g., show error message)
     }
   };
+  if (!isAuthenticated) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
+        <Card className="w-full max-w-md p-6 md:p-8">
+          <CardHeader>
+            <CardTitle>Access Restricted</CardTitle>
+            <CardDescription>Please enter the password to access the job submission form.</CardDescription>
+          </CardHeader>
+          <form onSubmit={handlePasswordSubmit}>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  required
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Button type="submit">Submit</Button>
+            </CardFooter>
+          </form>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
       <Card className="w-full max-w-md p-6 md:p-8">
