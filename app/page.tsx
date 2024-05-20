@@ -8,6 +8,7 @@ import SubmitModal from "@/components/submitmodal";
 import Spline from "@splinetool/react-spline";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from 'react';
+import { getJobs } from "./lib/jobData";
 
 export default function Home() {
   const [jobs, setJobs] = useState<any[]>([]);
@@ -29,20 +30,8 @@ export default function Home() {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const response = await fetch('/api/get-jobs', { cache: 'force-cache' });
-      const { data, count } = await response.json();
-      console.log("Fetched jobs:", data);
-
-      // Sort jobs by date_posted in descending order
-      const sortedJobs = data.sort((a: any, b: any) => {
-        const dateA = new Date(a.date_posted);
-        const dateB = new Date(b.date_posted);
-        console.log("Date comparison:", dateA, dateB);
-        return dateB.getTime() - dateA.getTime();
-      });
-
-      console.log("Sorted jobs:", sortedJobs);
-      setJobs(sortedJobs);
+      const { jobs, count } = await getJobs();
+      setJobs(jobs);
       setJobCount(count);
     };
     fetchJobs();
