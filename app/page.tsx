@@ -29,7 +29,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const response = await fetch('/api/get-jobs');
+      const response = await fetch('/api/get-jobs', { cache: 'force-cache' });
       const { data, count } = await response.json();
       console.log("Fetched jobs:", data);
 
