@@ -1,6 +1,6 @@
 
 export const getJobs = async () => {
-    const response = await fetch('/api/get-jobs');
+    const response = await fetch('/api/get-jobs', {cache: 'no-store'});
     const { data, count } = await response.json();
 
   // Sort jobs by date_posted in descending order
