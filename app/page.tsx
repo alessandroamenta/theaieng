@@ -21,7 +21,10 @@ export default function Home() {
   const [showCount, setShowCount] = useState(20);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
+  const [isSubscriptionLoading, setIsSubscriptionLoading] = useState(true);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -44,6 +47,49 @@ export default function Home() {
     };
     fetchJobs();
   }, []);
+
+  useEffect(() => {
+    const subscribed = localStorage.getItem("subscribed");
+    if (subscribed === "true") {
+      setIsSubscribed(true);
+    }
+    setIsSubscriptionLoading(false);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formBody = `email=${encodeURIComponent(email)}`;
+
+    try {
+      const response = await fetch("https://app.loops.so/api/newsletter-form/clwhyf7ru004yct0bycboxxfc", {
+        method: "POST",
+        body: formBody,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+
+      if (response.ok) {
+        // Subscription successful
+        console.log("Subscription successful");
+        setEmail("");
+        setIsSubscribed(true);
+        setShowThankYou(true);
+        localStorage.setItem("subscribed", "true");
+
+        // Hide the thank you message after 3 seconds
+        setTimeout(() => {
+          setShowThankYou(false);
+        }, 3000);
+      } else {
+        // Handle error
+        console.error("Subscription failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-12">
@@ -71,14 +117,14 @@ export default function Home() {
               fontFamily: 'monospace',
               lineHeight: '0.9',
               textAlign: 'left',
-              top: '8%', 
+              top: '8%',
               left: '33%'
             }}
           >
             <h1 style={{ marginBottom: '0.5rem' }}>
               AI<br />Engineer
             </h1>
-            <p style={{ fontSize: '0.9vw', fontFamily: 'monospace', textAlign: 'left', lineHeight: '1.5'}}>
+            <p style={{ fontSize: '0.9vw', fontFamily: 'monospace', textAlign: 'left', lineHeight: '1.5' }}>
               theaieng.com is the only job board<br />explicitly dedicated to AI Engineering roles.
             </p>
           </div>
@@ -101,24 +147,24 @@ export default function Home() {
                 </div>
               </div>
               <div className="grid gap-2 w-full max-w-2xl mb-[-190px] md:mb-190">
-              {isLoading ? (
-                Array.from({ length: showCount }).map((_, index) => (
-                  <SkeletonJobCard key={index} />
-                ))
-              ) : (
-                jobs.slice(0, showCount).map((job) => (
-                  <JobCard
-                    key={job.id}
-                    job_link={job.job_link}
-                    job_title={job.job_title}
-                    company_name={job.company_name}
-                    company_logo={job.company_logo}
-                    location={job.location}
-                    date_posted={job.date_posted}
-                    salary_range={job.salary_range}
-                  />
-                ))
-              )}
+                {isLoading ? (
+                  Array.from({ length: showCount }).map((_, index) => (
+                    <SkeletonJobCard key={index} />
+                  ))
+                ) : (
+                  jobs.slice(0, showCount).map((job) => (
+                    <JobCard
+                      key={job.id}
+                      job_link={job.job_link}
+                      job_title={job.job_title}
+                      company_name={job.company_name}
+                      company_logo={job.company_logo}
+                      location={job.location}
+                      date_posted={job.date_posted}
+                      salary_range={job.salary_range}
+                    />
+                  ))
+                )}
                 {jobs.length > 20 && (
                   <div className="flex justify-center mt-4">
                     <Button
@@ -138,24 +184,39 @@ export default function Home() {
             className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md px-4"
             style={{ maxWidth: '600px' }}
           >
-            <div className="relative">
-              <Input
-                placeholder="Add your email and get the hottest AI eng jobs..."
-                type="email"
-                className="bg-transparent border border-[#2f2f2f] w-full h-14 px-6 py-2 text-sm md:text-base rounded-md focus:outline-none focus:border-gray-400 placeholder:text-[#595959]"
-                style={{
-                  backgroundColor: 'var(--gray-trans)',
-                  WebkitBackdropFilter: 'blur(10px)',
-                  backdropFilter: 'blur(10px)',
-                }}
-              />
-              <Button
-                variant="outline"
-                className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 md:px-5 h-8 bg-[#090909] border border-[#181818] shadow-md"
-              >
-                Subscribe
-              </Button>
-            </div>
+            {isSubscriptionLoading ? null : (
+              isSubscribed ? (
+                showThankYou ? (
+                  <div className="text-center text-white">Thank you for subscribing!</div>
+                ) : null
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  <div className="relative">
+                    <Input
+                      placeholder="Add your email and get the hottest AI eng jobs..."
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="bg-transparent border border-[#2f2f2f] w-full h-14 px-6 py-2 text-sm md:text-base rounded-md focus:outline-none focus:border-gray-400 placeholder:text-[#595959]"
+                      style={{
+                        backgroundColor: 'var(--gray-trans)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        backdropFilter: 'blur(10px)',
+                      }}
+                    />
+                    <Button
+                      variant="outline"
+                      type="submit"
+                      className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 md:px-5 h-8 bg-[#090909] border border-[#181818] shadow-md"
+                    >
+                      Subscribe
+                    </Button>
+                  </div>
+                </form>
+              )
+            )}
           </div>
         </div>
       </div>
