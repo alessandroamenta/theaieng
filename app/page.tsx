@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from 'react';
 import { getJobs } from "./lib/jobData";
 import dynamic from 'next/dynamic';
+import SkeletonJobCard from "@/components/skeleton";
 
 const Spline = dynamic(() => import('@splinetool/react-spline'), {
   ssr: false,
@@ -19,6 +20,8 @@ export default function Home() {
   const [jobCount, setJobCount] = useState(0);
   const [showCount, setShowCount] = useState(20);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -37,6 +40,7 @@ export default function Home() {
       const { jobs, count } = await getJobs();
       setJobs(jobs);
       setJobCount(count);
+      setIsLoading(false);
     };
     fetchJobs();
   }, []);
@@ -97,7 +101,12 @@ export default function Home() {
                 </div>
               </div>
               <div className="grid gap-2 w-full max-w-2xl mb-[-190px] md:mb-190">
-                {jobs.slice(0, showCount).map((job) => (
+              {isLoading ? (
+                Array.from({ length: showCount }).map((_, index) => (
+                  <SkeletonJobCard key={index} />
+                ))
+              ) : (
+                jobs.slice(0, showCount).map((job) => (
                   <JobCard
                     key={job.id}
                     job_link={job.job_link}
@@ -108,7 +117,8 @@ export default function Home() {
                     date_posted={job.date_posted}
                     salary_range={job.salary_range}
                   />
-                ))}
+                ))
+              )}
                 {jobs.length > 20 && (
                   <div className="flex justify-center mt-4">
                     <Button
