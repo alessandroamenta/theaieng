@@ -93,8 +93,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black pt-12">
-      <div className={`w-full md:w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md pt-10 pb-[-40] ${isModalOpen ? 'blur-md' : ''}`}>
-        <header className="bg-white z-10 dark:bg-black dark:border-gray-800">
+      <div className={`w-full md:w-8/12 mx-auto border-[0.5px] border-gray-500 rounded-md pt-10 pb-[-40] ${isModalOpen ? 'blur-md' : ''}`}>        <header className="bg-white z-10 dark:bg-black dark:border-gray-800">
           <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
             <div className="flex-1"></div>
             <div className="relative">
@@ -110,18 +109,7 @@ export default function Home() {
           </div>
         </header>
         <div className="container mx-auto px-4 md:px-6 mt-8">
-          <div
-            className="text-overlay text-left hidden sm:block"
-            style={{
-              fontSize: '2.5vw',
-              fontFamily: 'monospace',
-              lineHeight: '0.9',
-              textAlign: 'left',
-              marginBottom: '2rem',
-              top: '26%',
-              left: '39%'
-            }}
-          >
+          <div className="text-overlay text-left hidden sm:block" style={{ fontSize: '2.5vw', fontFamily: 'monospace', lineHeight: '0.9', textAlign: 'left', marginBottom: '2rem', top: '26%', left: '39%' }}>
             <h1 style={{ marginBottom: '0.5rem' }}>
               AI<br />Engineer
             </h1>
@@ -129,9 +117,17 @@ export default function Home() {
               theaieng.com is the only job board<br />explicitly dedicated to AI Engineering roles.
             </p>
           </div>
+          <div className="text-overlay text-left sm:hidden" style={{ fontSize: '2vw', fontFamily: 'monospace', lineHeight: '0.9', textAlign: 'left', marginBottom: '2rem', top: '26%', left: '39%' }}>
+            <h1 style={{ marginBottom: '0.5rem', fontSize: '8.8vw' }}>
+              AI<br />Engineer
+            </h1>
+            <p style={{ fontSize: '2.5vw', fontFamily: 'monospace', textAlign: 'left', lineHeight: '1.5' }}>
+              theaieng.com is the only job board<br />explicitly dedicated to AI Engineering roles.
+            </p>
+          </div>
         </div>
         <div style={{ position: 'relative' }}>
-          <div style={{ position: 'relative', width: '100%', paddingTop: '50%' }}>
+          <div className="relative w-full sm:pt-[50%] pt-[92%]">
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
               <Spline scene="https://prod.spline.design/LEETA5bmC7fHpeZN/scene.splinecode" />
             </div>
@@ -185,10 +181,7 @@ export default function Home() {
               </div>
             </div>
           </main>
-          <div
-            className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md px-4"
-            style={{ maxWidth: '600px' }}
-          >
+          <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md px-4" style={{ maxWidth: '600px' }}>
             {isSubscriptionLoading ? null : (
               isSubscribed ? (
                 showThankYou ? (
@@ -231,10 +224,7 @@ export default function Home() {
           <nav>
             <ul className="flex space-x-4">
               <li>
-                <Link
-                  className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                  href="/privacy"
-                >
+                <Link className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" href="/privacy">
                   Privacy
                 </Link>
               </li>
