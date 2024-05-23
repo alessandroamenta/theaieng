@@ -72,7 +72,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ onClose }) => {
             </p>
             <ul className="text-gray-300 list-disc pl-5 mb-6" style={{ fontSize: "14px" }}>
               <li>Job post is featured for 30 days</li>
-              {/*<li>Metrics: 10k monthly pageviews, 100+ clicks per post, 75% open rate newsletter</li>*/}
+              <li>Metrics: 10k monthly page views, 1k newsletter subscribers</li>
             </ul>
             <form onSubmit={handleSubmit}>
               <div className="space-y-4 mb-6">
