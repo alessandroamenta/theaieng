@@ -71,19 +71,16 @@ export default function Home() {
       });
 
       if (response.ok) {
-        // Subscription successful
         console.log("Subscription successful");
         setEmail("");
         setIsSubscribed(true);
         setShowThankYou(true);
         localStorage.setItem("subscribed", "true");
 
-        // Hide the thank you message after 3 seconds
         setTimeout(() => {
           setShowThankYou(false);
         }, 3000);
       } else {
-        // Handle error
         console.error("Subscription failed");
       }
     } catch (error) {
