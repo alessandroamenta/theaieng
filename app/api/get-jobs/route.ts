@@ -1,3 +1,4 @@
+// app/api/get-jobs/route.ts
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
@@ -10,7 +11,8 @@ export async function GET(req: Request) {
   try {
     const { data, error, count } = await supabase
       .from("job_postings")
-      .select("*", { count: "exact" });
+      .select("*", { count: "exact" })
+      .order("date_posted", { ascending: false });
 
     if (error) {
       console.error("Error fetching jobs:", error);
@@ -25,5 +27,3 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Failed to fetch jobs" }, { status: 500 });
   }
 }
-
-
