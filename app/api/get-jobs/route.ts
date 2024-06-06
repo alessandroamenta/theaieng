@@ -12,6 +12,7 @@ export async function GET(req: Request) {
     const { data, error, count } = await supabase
       .from("job_postings")
       .select("*", { count: "exact" })
+      .order("id", { ascending: false });
 
     if (error) {
       console.error("Error fetching jobs:", error);
@@ -23,7 +24,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ data, count }, {
       status: 200,
       headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Cache-Control': 'no-cache',
       },
     });
   } catch (error) {

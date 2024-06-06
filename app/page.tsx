@@ -50,7 +50,8 @@ export default function Home() {
     fetchJobs();
   
     const interval = setInterval(async () => {
-      const { jobs, count } = await getJobs();
+      const timestamp = Date.now();
+      const { jobs, count } = await getJobs(`/api/get-jobs?t=${timestamp}`);
       setJobs(jobs);
       setJobCount(count);
       console.log("Updated jobs state (interval):", jobs);
