@@ -48,10 +48,14 @@ export default function Home() {
   
     fetchJobs();
   
-    const interval = setInterval(fetchJobs, 5000); // Fetch jobs every 5 seconds
+    const interval = setInterval(async () => {
+      const { jobs, count } = await getJobs();
+      setJobs(jobs);
+      setJobCount(count);
+    }, 5000);
   
     return () => {
-      clearInterval(interval); // Clean up the interval on component unmount
+      clearInterval(interval);
     };
   }, []);
 
