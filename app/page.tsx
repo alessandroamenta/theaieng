@@ -45,7 +45,14 @@ export default function Home() {
       setJobCount(count);
       setIsLoading(false);
     };
+  
     fetchJobs();
+  
+    const interval = setInterval(fetchJobs, 5000); // Fetch jobs every 5 seconds
+  
+    return () => {
+      clearInterval(interval); // Clean up the interval on component unmount
+    };
   }, []);
 
   useEffect(() => {
