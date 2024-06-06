@@ -1,14 +1,21 @@
+// lib/jobData.ts
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+  process.env.NEXT_PUBLIC_SUPABASE_KEY || ""
+);
 
 export const getJobs = async () => {
-    const response = await fetch('/api/get-jobs', {cache: 'no-store'});
-    const { data, count } = await response.json();
+  const { data, error, count } = await supabase
+    .from("job_postings")
+    .select("*", { count: "exact" })
+    .order("date_posted", { ascending: false });
 
-  // Sort jobs by date_posted in descending order
-  const sortedJobs = data.sort((a: any, b: any) => {
-    const dateA = new Date(a.date_posted);
-    const dateB = new Date(b.date_posted);
-    return dateB.getTime() - dateA.getTime();
-  });
+  if (error) {
+    console.error("Error fetching jobs:", error);
+    throw new Error("Failed to fetch jobs");
+  }
 
-  return { jobs: sortedJobs, count };
+  return { jobs: data, count };
 };
