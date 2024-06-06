@@ -21,7 +21,12 @@ export async function GET(req: Request) {
 
     console.log("Fetched jobs from Supabase:", data);
 
-    return NextResponse.json({ data, count }, { status: 200 });
+    return NextResponse.json({ data, count }, {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+      },
+    });
   } catch (error) {
     console.error("Error fetching jobs:", error);
     return NextResponse.json({ error: "Failed to fetch jobs" }, { status: 500 });
