@@ -12,7 +12,6 @@ export async function GET(req: Request) {
     const { data, error, count } = await supabase
       .from("job_postings")
       .select("*", { count: "exact" })
-      .order("date_posted", { ascending: false });
 
     if (error) {
       console.error("Error fetching jobs:", error);

@@ -16,6 +16,7 @@ const Spline = dynamic(() => import('@splinetool/react-spline'), {
 });
 
 export default function Home() {
+  console.log("Main page component rendered");
   const [jobs, setJobs] = useState<any[]>([]);
   const [jobCount, setJobCount] = useState(0);
   const [showCount, setShowCount] = useState(20);
@@ -52,7 +53,9 @@ export default function Home() {
       const { jobs, count } = await getJobs();
       setJobs(jobs);
       setJobCount(count);
-    }, 5000);
+      console.log("Updated jobs state (interval):", jobs);
+      console.log("Updated job count state (interval):", count);
+      }, 5000);
   
     return () => {
       clearInterval(interval);
