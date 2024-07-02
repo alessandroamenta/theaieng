@@ -59,7 +59,7 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formBody = `email=${encodeURIComponent(email)}`;
+    const formBody = `email=${encodeURIComponent(email)}&source=${encodeURIComponent('theaieng')}`;
 
     try {
       const response = await fetch("https://app.loops.so/api/newsletter-form/clwhyf7ru004yct0bycboxxfc", {
